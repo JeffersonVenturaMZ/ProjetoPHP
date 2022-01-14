@@ -1,4 +1,7 @@
 <?php
+// Sessão
+session_start();
+
 // Conexão
 require_once 'db_connect.php';
 
@@ -11,8 +14,10 @@ $idade = mysqli_escape_string($connect, $_POST['idade']);
 $sql = "INSERT INTO clientes (nome, sobrenome, email, idade) VALUES ('$nome', '$sobrenome', '$email', '$idade')";
 
 if(mysqli_query($connect, $sql)):
-    header('Location: ../index.php?sucesso');
+    $_SESSION['mensagem'] = "Cadastrado com sucesso!";
+    header('Location: ../index.php');
 else:
-    header('Location: ../index.php?erro');
+    $_SESSION['mensagem'] = "Erro ao cadastrar!";
+    header('Location: ../index.php');
 endif;    
 endif;
